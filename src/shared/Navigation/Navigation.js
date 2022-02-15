@@ -4,12 +4,13 @@ import useTheme from "../hooks/use-theme";
 
 const Navigation = () => {
   const [theme, setTheme] = useTheme();
+
   const toggleThemeHandler = () => {
     setTheme(!theme);
   };
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const toggleMobileMenuHandler = () => {
-    setShowMobileMenu(!showMobileMenu);
+    const mobileDiv = document.getElementById("mobile-menu");
+    mobileDiv.classList.toggle("hidden");
   };
 
   return (
@@ -99,31 +100,29 @@ const Navigation = () => {
             </svg>
           </button>
         </div>
-        {showMobileMenu && (
-          <div
-            className="justify-between items-center w-full md:flex md:w-auto md:order-1"
-            id="mobile-menu"
-          >
-            <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-              <li>
-                <a
-                  href="/add-article"
-                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Add Article
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/login"
-                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Login
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
+        <div
+          className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+          id="mobile-menu"
+        >
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+            <li>
+              <Link
+                to="/mypage"
+                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Add Article
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/authenticate"
+                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Login
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
       <script src="/scripts/nav.js"></script>
     </nav>

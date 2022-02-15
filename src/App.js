@@ -9,6 +9,7 @@ import UserPosts from "./posts/pages/UserPosts";
 import EditPost from "./posts/pages/EditPost";
 import NewPost from "./posts/pages/NewPost";
 import PostDetail from "./posts/pages/PostDetail";
+import MyPage from "./posts/pages/MyPage";
 
 function App() {
   const [userCtx, setUserCtx] = useContext(UserContext);
@@ -28,8 +29,9 @@ function App() {
       <Routes>
         <Route path="/" element={<AllPosts />} />
         <Route path=":uid/*" element={<UserPosts />} />
-        <Route path="posts/new" element={<NewPost />} />
-        <Route path="posts/:pid" element={<EditPost />} />
+        <Route path="mypage/*" element={<MyPage />} />
+        <Route path="mypage/new" element={<NewPost />} />
+        <Route path="mypage/:pid" element={<EditPost />} />
       </Routes>
     );
   } else {
