@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Route, Redirect, Routes } from "react-router-dom";
+import { useContext, useEffect, useCallback } from "react";
+import { Route, Navigate, Routes } from "react-router-dom";
 import Auth from "./auth/pages/Auth";
 import Navigation from "./shared/Navigation/Navigation";
 
@@ -12,19 +12,54 @@ import PostDetail from "./posts/pages/PostDetail";
 import MyPage from "./posts/pages/MyPage";
 
 function App() {
-  const [userCtx, setUserCtx] = useContext(UserContext);
+  const [userContext, setUserContext] = useContext(UserContext);
+
+  const verifyUser = useCallback(() => {
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/refreshtoken", {
+      method: "POST",
+      credentials: "include",
+      header: { "Content-Type": "application/json" },
+    }).then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        setUserContext((prev) => ({ ...prev, token: data.token }));
+      } else {
+        setUserContext((prev) => ({ ...prev, token: null }));
+      }
+
+      setTimeout(verifyUser, 5 * 30 * 1000); //call refreshtoken every 5 minutes to renew token
+    });
+  }, [setUserContext]);
+
+  useEffect(() => verifyUser(), [verifyUser]);
+
+  const syncLogout = useCallback((event) => {
+    if (event.key === "logout") {
+      window.location.reload();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("storage", syncLogout);
+
+    return () => {
+      window.removeEventListener("storage", syncLogout);
+    };
+  }, [syncLogout]);
+
   let routes;
 
-  if (userCtx.token === null) {
+  if (userContext.token === null) {
     routes = (
       <Routes>
         <Route path="/" element={<AllPosts />} />
         <Route path=":uid/*" element={<UserPosts />} />
         <Route path=":uid/:pid" element={<PostDetail />} />
         <Route path="authenticate" element={<Auth />} />
+        <Route path="*" render={() => <Navigate to="/" />} />
       </Routes>
     );
-  } else if (userCtx.token) {
+  } else if (userContext.token) {
     routes = (
       <Routes>
         <Route path="/" element={<AllPosts />} />
@@ -32,6 +67,7 @@ function App() {
         <Route path="mypage/*" element={<MyPage />} />
         <Route path="mypage/new" element={<NewPost />} />
         <Route path="mypage/:pid" element={<EditPost />} />
+        <Route path="*" render={() => <Navigate to="/" />} />
       </Routes>
     );
   } else {
