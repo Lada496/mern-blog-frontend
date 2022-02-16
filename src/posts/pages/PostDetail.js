@@ -1,9 +1,9 @@
-import React from 'react'
+import { useParams } from "react-router-dom";
 
 const PostDetail = () => {
-  return (
-    <div>PostDetail</div>
-  )
-}
+  const params = useParams();
+  console.log(params);
+  return <div>PostDetail</div>;
+};
 
-export default PostDetail
+export default PostDetail;

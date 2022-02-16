@@ -64,6 +64,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AllPosts />} />
         <Route path=":uid/*" element={<UserPosts />} />
+        <Route path=":uid/:pid" element={<PostDetail />} />
         <Route path="mypage/*" element={<MyPage />} />
         <Route path="mypage/new" element={<NewPost />} />
         <Route path="mypage/:pid" element={<EditPost />} />

@@ -154,9 +154,11 @@ const PostForm = ({
             rows="10"
             // defaultValue={isEditMode ? currentPost.body : ""}
             className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            {...register("body", { required: true })}
+            {...register("body", { required: true, minLength: 5 })}
           ></textarea>
-          {errors.body && <ErrorMessage text="This is required" />}
+          {errors.body && (
+            <ErrorMessage text="Body should be at least 5 words" />
+          )}
         </div>
         <Button disabled={buttonDisaled || isSubmitting}>
           {isSubmitting ? <LoadingButtonEl /> : "Submit"}
