@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useTheme from "../hooks/use-theme";
+import { UserContext } from "../context/user-context";
 
 const Navigation = () => {
   const [theme, setTheme] = useTheme();
-
+  const [userContext] = useContext(UserContext);
   const toggleThemeHandler = () => {
     setTheme(!theme);
   };
@@ -34,12 +35,12 @@ const Navigation = () => {
             onClick={toggleThemeHandler}
             id="theme-toggle"
             type="button"
-            className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
+            className="w-36 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
           >
             {!theme && (
               <svg
                 id="theme-toggle-dark-icon"
-                className="w-5 h-5"
+                className="ml-auto w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +51,7 @@ const Navigation = () => {
             {theme && (
               <svg
                 id="theme-toggle-light-icon"
-                className="w-5 h-5"
+                className="ml-auto w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,26 +106,44 @@ const Navigation = () => {
           id="mobile-menu"
         >
           <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-            <li>
-              <Link
-                to="/mypage"
-                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Add Article
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/authenticate"
-                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Login
-              </Link>
-            </li>
+            {userContext.token && (
+              <>
+                <li>
+                  <Link
+                    to="/mypage"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    My Page
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/mypage/new"
+                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Create New Post
+                  </Link>
+                </li>
+                <li>
+                  <span className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                    Logout
+                  </span>
+                </li>
+              </>
+            )}
+            {userContext.token === null && (
+              <li>
+                <Link
+                  to="/authenticate"
+                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
-      <script src="/scripts/nav.js"></script>
     </nav>
   );
 };

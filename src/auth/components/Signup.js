@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useHttp } from "../../shared/hooks/use-http";
+import { UserContext } from "../../shared/context/user-context";
 import Button from "../../shared/UIElements/Button";
 
 const Signup = ({ setIsLogin }) => {
   const [passwordInput, setPasswordInput] = useState(null);
-  const { isLoading, error, sendRequest, clearError } = useHttp();
+  // const { isLoading, error, sendRequest, clearError } = useHttp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userContext, setUserContext] = useContext(UserContext);
+  const [error, setError] = useState("");
   const goToLoginHandler = () => {
     setIsLogin(true);
   };
@@ -23,22 +27,48 @@ const Signup = ({ setIsLogin }) => {
   }, [watch]);
 
   const onSubmit = async (data, e) => {
-    try {
-      const responseData = await sendRequest(
-        `${process.env.REACT_APP_API_ENDPOINT}api/users/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: data.name,
-            username: data.email,
-            password: data.password,
-          }),
+    setIsSubmitting(true);
+    setError("");
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
+        username: data.email,
+        password: data.password,
+      }),
+      credentials: "include",
+    })
+      .then(async (response) => {
+        setIsSubmitting(false);
+
+        if (!response.ok) {
+          if (response.status === 400) {
+            setError("Please fill all the missing fields");
+          } else if (response.status === 401) {
+            setError("Invalid email and/or password");
+          } else if (response.status === 500) {
+            const data = await response.json();
+            if (data.message) {
+              setError(
+                data.message || "Something went wrong! Please try again"
+              );
+            } else {
+              setError("Something went wrong! Please try again");
+            }
+          } else {
+            setError("Something went wrong! Please try again");
+          }
+        } else {
+          const data = await response.json();
+          setUserContext((prev) => ({ ...prev, token: data.token }));
         }
-      );
-      console.log(responseData);
-    } catch (err) {}
-    // e.target.reset();
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        setError("Something went wrong! Please try again"); //generic error message
+      })
+      .finally(e.target.reset());
   };
 
   return (
@@ -136,10 +166,10 @@ const Signup = ({ setIsLogin }) => {
             errors.password ||
             errors.confirmPassword ||
             errors.email ||
-            isLoading
+            isSubmitting
           }
         >
-          {isLoading ? (
+          {isSubmitting ? (
             <>
               <svg
                 role="status"
