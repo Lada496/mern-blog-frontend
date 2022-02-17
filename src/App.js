@@ -16,7 +16,10 @@ function App() {
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/refreshtoken", {
       method: "POST",
       credentials: "include",
-      header: { "Content-Type": "application/json" },
+      header: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userContext.token}`,
+      },
     })
       .then(async (response) => {
         if (response.ok) {
