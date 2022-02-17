@@ -2,7 +2,12 @@ import { useState, createContext } from "react";
 
 const UserContext = createContext([{}, () => {}]);
 
-let initialState = { token: null, refetch: false, isLoading: false };
+let initialState = {
+  token: null,
+  refetch: false,
+  isLoading: false,
+  init: true,
+};
 
 const UserProvider = (props) => {
   const [state, setState] = useState(initialState);
