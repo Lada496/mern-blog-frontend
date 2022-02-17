@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useTheme from "../hooks/use-theme";
 import { UserContext } from "../context/user-context";
 
@@ -147,12 +147,6 @@ const Navigation = () => {
                       Logout
                     </span>
                   </button>
-                  {/* <span
-                    onClick={logoutHandler}
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 rounded hover:bg-emerald-400 hover:text-white md:hover:bg-transparent md:border-0 md:hover:text-emerald-400 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-emerald-400 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  >
-                    Logout
-                  </span> */}
                 </li>
               </>
             )}

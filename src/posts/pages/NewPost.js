@@ -1,4 +1,3 @@
-import React from "react";
 import PageHeading from "../../shared/UIElements/PageHeading";
 import PostForm from "../components/PostForm";
 

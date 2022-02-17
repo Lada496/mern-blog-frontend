@@ -53,7 +53,7 @@ function App() {
     routes = (
       <Routes>
         <Route path="/" element={<AllPosts />} />
-        <Route path=":uid/*" element={<UserPosts />} />
+        {/* <Route path=":uid/*" element={<UserPosts />} /> */}
         <Route path=":uid/:pid" element={<PostDetail />} />
         <Route path="authenticate" element={<Auth />} />
         <Route path="*" render={() => <Navigate to="/" />} />

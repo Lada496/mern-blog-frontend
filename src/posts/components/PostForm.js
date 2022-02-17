@@ -6,17 +6,17 @@ import ErrorMessage from "../../shared/UIElements/ErrorMessage";
 import LoadingButtonEl from "../../shared/UIElements/LoadingButtonEl";
 import { UserContext } from "../../shared/context/user-context";
 
-const PostForm = ({
-  isEditMode = false,
-  currentPost = {
-    title: "test",
-    body: "test",
-  },
-}) => {
+const PostForm = ({ isEditMode = false, currentPost = {} }) => {
+  console.log(currentPost);
   const navigate = useNavigate();
   const [userContext, setUserContext] = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const defaultValues = {
+    title: currentPost.title,
+    body: currentPost.body,
+    image: currentPost.image,
+  };
   // const defaultValues = isEditMode
   //   ? {
   //       title: currentPost.title,
@@ -34,54 +34,57 @@ const PostForm = ({
   const onSubmit = (data, e) => {
     setIsSubmitting(true);
     setError("");
-    if (isEditMode) {
-      console.log(data);
-    } else {
-      // const formData = new FormData();
-      // formData.append("title", data.title);
-      // formData.append("body", data.body);
-      // formData.append("date", new Date());
-      // formData.append("image", data.image);
-      // formData.append("name", userContext.details.name);
-      // formData.append("userId", userContext.details.userId);
-      // console.log(formData);
-      fetch(process.env.REACT_APP_API_ENDPOINT + "api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userContext.token}`,
-        },
-        body: JSON.stringify({
-          title: data.title,
-          body: data.body,
-          date: new Date(),
-          image: data.image,
-          // name: userContext.details.name,
-          // userId: userContext.details.userId,
-        }),
+    // if (isEditMode) {
+    //   console.log(data);
+    // } else {
+    const url = isEditMode
+      ? `${process.env.REACT_APP_API_ENDPOINT}api/posts/${currentPost.id}`
+      : `${process.env.REACT_APP_API_ENDPOINT}api/posts`;
+    // const formData = new FormData();
+    // formData.append("title", data.title);
+    // formData.append("body", data.body);
+    // formData.append("date", new Date());
+    // formData.append("image", data.image);
+    // formData.append("name", userContext.details.name);
+    // formData.append("userId", userContext.details.userId);
+    // console.log(formData);
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userContext.token}`,
+      },
+      body: JSON.stringify({
+        title: data.title,
+        body: data.body,
+        date: isEditMode ? currentPost.date : new Date(),
+        image: data.image,
+        // name: userContext.details.name,
+        // userId: userContext.details.userId,
+      }),
+    })
+      .then(async (response) => {
+        setIsSubmitting(false);
+        if (!response.ok) {
+          throw Error("Create new post falied");
+        }
+        const data = await response.json();
+        console.log(data);
+        navigate("/mypage");
       })
-        .then(async (response) => {
-          setIsSubmitting(false);
-          if (!response.ok) {
-            throw Error("Create new post falied");
-          }
-          const data = await response.json();
-          console.log(data);
-          navigate("/mypage");
-        })
-        .catch((err) => {
-          setIsSubmitting(false);
-          setError(err);
-        })
-        .finally(e.target.reset());
-    }
+      .catch((err) => {
+        setIsSubmitting(false);
+        setError(err);
+      })
+      .finally(e.target.reset());
+    // }
   };
-  let buttonDisaled;
-  if (isEditMode) {
-    buttonDisaled = errors.title || errors.body;
-  } else {
-    buttonDisaled = errors.title || errors.body || error.image;
-  }
+  let buttonDisaled = errors.title || errors.body || error.image;
+  // if (isEditMode) {
+  //   buttonDisaled = errors.title || errors.body;
+  // } else {
+  //   buttonDisaled = errors.title || errors.body || error.image;
+  // }
   return (
     <div className="m-10">
       <form
@@ -107,6 +110,7 @@ const PostForm = ({
             // name="title"
             // defaultValue={isEditMode ? currentPost.title : ""}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            defaultValue={isEditMode ? defaultValues.title : ""}
             {...register("title", { required: true })}
           />
           {errors.title && <ErrorMessage text="This is required" />}
@@ -116,10 +120,11 @@ const PostForm = ({
             htmlFor="image"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            Image Url
+            Image URL
           </label>
           <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            defaultValue={isEditMode ? defaultValues.image : ""}
             {...register("image", { required: true })}
           />
           {errors.image && <ErrorMessage text="This is required" />}
@@ -154,6 +159,7 @@ const PostForm = ({
             rows="10"
             // defaultValue={isEditMode ? currentPost.body : ""}
             className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            defaultValue={isEditMode ? defaultValues.body : ""}
             {...register("body", { required: true, minLength: 5 })}
           ></textarea>
           {errors.body && (

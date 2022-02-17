@@ -4,33 +4,35 @@ import Message from "../../shared/UIElements/Message";
 import ErrorMessage from "../../shared/UIElements/ErrorMessage";
 import PageHeading from "../../shared/UIElements/PageHeading";
 import PostsList from "../components/PostsList";
+import { useMyData } from "../../shared/hooks/use-mydata";
 
 const MyPage = () => {
+  useMyData();
   const [userContext, setUserContext] = useContext(UserContext);
   const [myPosts, setMyPosts] = useState([]);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const fetchUserDetails = useCallback(() => {
-    fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/me", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userContext.token}`,
-      },
-    }).then(async (response) => {
-      if (response.ok) {
-        const data = await response.json();
-        setUserContext((prev) => ({ ...prev, details: data }));
-      } else {
-        if (response.status === 401) {
-          window.location.reload();
-        } else {
-          setUserContext((prev) => ({ ...prev, details: null }));
-        }
-      }
-    });
-  }, [setUserContext, userContext.token]);
+  // const fetchUserDetails = useCallback(() => {
+  //   fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/me", {
+  //     method: "GET",
+  //     credentials: "include",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${userContext.token}`,
+  //     },
+  //   }).then(async (response) => {
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setUserContext((prev) => ({ ...prev, details: data }));
+  //     } else {
+  //       if (response.status === 401) {
+  //         window.location.reload();
+  //       } else {
+  //         setUserContext((prev) => ({ ...prev, details: null }));
+  //       }
+  //     }
+  //   });
+  // }, [setUserContext, userContext.token]);
 
   const fetchPostsByUserId = useCallback(() => {
     setError("");
@@ -59,14 +61,17 @@ const MyPage = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (!userContext.details) {
-      fetchUserDetails();
-    }
-  }, [fetchUserDetails, userContext.details]);
+  // useEffect(() => {
+  //   if (!userContext.details) {
+  //     fetchUserDetails();
+  //   }
+  // }, [fetchUserDetails, userContext.details]);
 
   useEffect(() => {
-    if (userContext?.details?.length > 0 || myPosts.length === 0) {
+    console.log(userContext);
+    console.log(userContext?.details?.posts);
+
+    if (userContext?.details?.posts.length > 0 && myPosts.length === 0) {
       fetchPostsByUserId();
     }
   }, [userContext.details, myPosts]);
