@@ -12,27 +12,6 @@ const MyPage = () => {
   const [myPosts, setMyPosts] = useState([]);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  // const fetchUserDetails = useCallback(() => {
-  //   fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/me", {
-  //     method: "GET",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${userContext.token}`,
-  //     },
-  //   }).then(async (response) => {
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setUserContext((prev) => ({ ...prev, details: data }));
-  //     } else {
-  //       if (response.status === 401) {
-  //         window.location.reload();
-  //       } else {
-  //         setUserContext((prev) => ({ ...prev, details: null }));
-  //       }
-  //     }
-  //   });
-  // }, [setUserContext, userContext.token]);
 
   const fetchPostsByUserId = useCallback(() => {
     setError("");
@@ -72,13 +51,20 @@ const MyPage = () => {
 
   return (
     <div className="mx-10 my-5">
-      <PageHeading>{`${userContext?.details?.name}'s`} Page</PageHeading>
       {error && <ErrorMessage text="Failed to fetch data" />}
-      {userContext?.details?.posts.length === 0 && (
-        <Message text="No posts yet!" />
+
+      {userContext?.details && (
+        <PageHeading>
+          {userContext.details.name}
+          <span className="lowercase">'s</span> Page
+        </PageHeading>
       )}
       {isLoading && <Message text="Loaindg..." />}
-      {myPosts.length > 0 && <PostsList posts={myPosts} />}
+      {userContext?.details?.posts.length === 0 ? (
+        <Message text="No posts yet!" />
+      ) : (
+        <PostsList posts={myPosts} />
+      )}
     </div>
   );
 };

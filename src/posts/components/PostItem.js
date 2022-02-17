@@ -34,7 +34,7 @@ const PostItem = ({ post }) => {
               : post.body}
           </p>
           <Link
-            to={`../${post.userId}/${post.id}`}
+            to={`../../${post.userId}/${post.id}`}
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-emerald-400 rounded-lg hover:bg-emerald-500 focus:ring-4 focus:ring-blue-300 dark:bg-emerald-400 dark:hover:bg-emerald-500 dark:focus:ring-blue-800"
           >
             Read more
