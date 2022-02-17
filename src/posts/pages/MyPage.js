@@ -33,7 +33,7 @@ const MyPage = () => {
   const fetchPostsByUserId = useCallback(() => {
     setError("");
     setIsLoading(true);
-    fetch(process.env.REACT_APP_API_ENDPOINT + "api/posts/myposts", {
+    fetch(process.env.REACT_APP_API_ENDPOINT + "api/posts/myposts/posts", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -43,16 +43,17 @@ const MyPage = () => {
     })
       .then(async (response) => {
         setIsLoading(false);
+        console.log(response);
         if (!response.ok) {
           throw Error("Failed to fetch your posts");
         }
         const data = await response.json();
-        console.log(data.posts);
         setMyPosts(data.posts);
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err);
+        console.log(err);
       });
   }, []);
 
