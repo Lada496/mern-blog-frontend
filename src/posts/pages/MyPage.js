@@ -1,5 +1,7 @@
 import { useEffect, useCallback, useContext, useState } from "react";
 import { UserContext } from "../../shared/context/user-context";
+import Message from "../../shared/UIElements/Message";
+import ErrorMessage from "../../shared/UIElements/ErrorMessage";
 import PageHeading from "../../shared/UIElements/PageHeading";
 import PostsList from "../components/PostsList";
 
@@ -69,19 +71,18 @@ const MyPage = () => {
     }
   }, [userContext.details, myPosts]);
 
-  useEffect(() => {
-    console.log(userContext.details);
-  }, [userContext]);
+  // useEffect(() => {
+  //   console.log(userContext.details);
+  // }, [userContext]);
 
   return (
     <div className="mx-10 my-5">
       <PageHeading>{`${userContext?.details?.name}'s`} Page</PageHeading>
+      {error && <ErrorMessage text="Failed to fetch data" />}
       {userContext?.details?.posts.length === 0 && (
-        <p className="text-gray-500 dark:text-gray-100">No posts yet!</p>
+        <Message text="No posts yet!" />
       )}
-      {isLoading && (
-        <p className="text-gray-500 dark:text-gray-100">Loaindg...</p>
-      )}
+      {isLoading && <Message text="Loaindg..." />}
       {myPosts.length > 0 && <PostsList posts={myPosts} />}
     </div>
   );

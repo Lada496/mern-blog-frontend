@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/UIElements/Button";
 import ErrorMessage from "../../shared/UIElements/ErrorMessage";
@@ -6,6 +7,7 @@ import LoadingButtonEl from "../../shared/UIElements/LoadingButtonEl";
 import { UserContext } from "../../shared/context/user-context";
 
 const Login = ({ setIsLogin }) => {
+  const navigate = useNavigate();
   const [userContext, setUserContext] = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -42,6 +44,7 @@ const Login = ({ setIsLogin }) => {
           const data = await response.json();
           setUserContext((prev) => ({ ...prev, token: data.token }));
         }
+        navigate("/mypage", { replace: true });
       })
       .catch((error) => {
         setIsSubmitting(false);
