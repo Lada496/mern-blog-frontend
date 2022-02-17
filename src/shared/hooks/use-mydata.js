@@ -4,6 +4,7 @@ import { UserContext } from "../context/user-context";
 export const useMyData = () => {
   const [userContext, setUserContext] = useContext(UserContext);
   const fetchUserDetails = useCallback(() => {
+    setUserContext((prev) => ({ ...prev, isLoading: true }));
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/me", {
       method: "GET",
       credentials: "include",
@@ -12,6 +13,7 @@ export const useMyData = () => {
         Authorization: `Bearer ${userContext.token}`,
       },
     }).then(async (response) => {
+      setUserContext((prev) => ({ ...prev, isLoading: false }));
       if (response.ok) {
         const data = await response.json();
         setUserContext((prev) => ({ ...prev, details: data }));
@@ -25,10 +27,16 @@ export const useMyData = () => {
     });
   }, [setUserContext, userContext.token]);
   useEffect(() => {
-    console.log(userContext);
-    if (userContext.token && !userContext.details) {
+    // console.log(userContext);
+    if ((userContext.token && !userContext.details) || userContext.refetch) {
       fetchUserDetails();
+      setUserContext((prev) => ({ ...prev, refetch: false }));
     }
-  }, [fetchUserDetails, userContext.details, userContext.token]);
+  }, [
+    fetchUserDetails,
+    userContext.details,
+    userContext.token,
+    userContext.refetch,
+  ]);
   //   return userContext.details;
 };

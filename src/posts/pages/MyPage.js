@@ -47,7 +47,6 @@ const MyPage = () => {
     })
       .then(async (response) => {
         setIsLoading(false);
-        console.log(response);
         if (!response.ok) {
           throw Error("Failed to fetch your posts");
         }
@@ -61,24 +60,15 @@ const MyPage = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (!userContext.details) {
-  //     fetchUserDetails();
-  //   }
-  // }, [fetchUserDetails, userContext.details]);
-
   useEffect(() => {
-    console.log(userContext);
-    console.log(userContext?.details?.posts);
-
-    if (userContext?.details?.posts.length > 0 && myPosts.length === 0) {
+    if (
+      !userContext.isLoading &&
+      userContext?.details?.posts.length > 0 &&
+      myPosts.length === 0
+    ) {
       fetchPostsByUserId();
     }
   }, [userContext.details, myPosts]);
-
-  // useEffect(() => {
-  //   console.log(userContext.details);
-  // }, [userContext]);
 
   return (
     <div className="mx-10 my-5">

@@ -7,7 +7,7 @@ import LoadingButtonEl from "../../shared/UIElements/LoadingButtonEl";
 import { UserContext } from "../../shared/context/user-context";
 
 const PostForm = ({ isEditMode = false, currentPost = {} }) => {
-  console.log(currentPost);
+
   const navigate = useNavigate();
   const [userContext, setUserContext] = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -70,6 +70,14 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
         }
         const data = await response.json();
         console.log(data);
+        // if(userContext.details.posts.length === 0){
+        //   const newDetails = {
+        //     ...userContext.details,
+        //     posts:[]
+        //   }
+        // }
+
+        setUserContext((prev) => ({ ...prev, refetch: true }));
         navigate("/mypage");
       })
       .catch((err) => {
