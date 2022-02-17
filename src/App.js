@@ -1,7 +1,6 @@
 import { useContext, useEffect, useCallback } from "react";
-import { Route, Navigate, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Auth from "./auth/pages/Auth";
-import Navigation from "./shared/Layout/Navigation";
 import Layout from "./shared/Layout/Layout";
 import PublicPage from "./shared/pages/PublicPage";
 import NotFoundPage from "./shared/pages/NotFoundPage";
@@ -9,12 +8,6 @@ import RequireAuth from "./shared/wapper/RequireAuth";
 import ProtectedPage from "./shared/pages/ProtectedPage";
 
 import { UserContext } from "./shared/context/user-context";
-import AllPosts from "./posts/pages/AllPosts";
-import UserPosts from "./posts/pages/UserPosts";
-import EditPost from "./posts/pages/EditPost";
-import NewPost from "./posts/pages/NewPost";
-import PostDetail from "./posts/pages/PostDetail";
-import MyPage from "./posts/pages/MyPage";
 
 function App() {
   const [userContext, setUserContext] = useContext(UserContext);

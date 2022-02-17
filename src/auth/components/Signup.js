@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/UIElements/Button";
 import ErrorMessage from "../../shared/UIElements/ErrorMessage";
-import { useHttp } from "../../shared/hooks/use-http";
 import { UserContext } from "../../shared/context/user-context";
 import LoadingButtonEl from "../../shared/UIElements/LoadingButtonEl";
 
@@ -11,7 +10,6 @@ const Signup = ({ setIsLogin }) => {
   const [passwordInput, setPasswordInput] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  // const { isLoading, error, sendRequest, clearError } = useHttp();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userContext, setUserContext] = useContext(UserContext);
   const [error, setError] = useState("");
