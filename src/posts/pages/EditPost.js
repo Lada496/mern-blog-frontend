@@ -35,7 +35,7 @@ const EditPost = () => {
   }, [fetchPostById, post]);
   return (
     <div className="mx-10 my-5">
-      <PageHeading>Create New Post</PageHeading>
+      <PageHeading>Edit Post</PageHeading>
       {isLoading && <Message text="Loading..." />}
       {error && <ErrorMessage text={error} />}
       {post && <PostForm currentPost={post} isEditMode={true} />}
