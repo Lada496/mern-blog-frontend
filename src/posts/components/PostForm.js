@@ -7,7 +7,6 @@ import LoadingButtonEl from "../../shared/UIElements/LoadingButtonEl";
 import { UserContext } from "../../shared/context/user-context";
 
 const PostForm = ({ isEditMode = false, currentPost = {} }) => {
-
   const navigate = useNavigate();
   const [userContext, setUserContext] = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,37 +16,22 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
     body: currentPost.body,
     image: currentPost.image,
   };
-  // const defaultValues = isEditMode
-  //   ? {
-  //       title: currentPost.title,
-  //       body: currentPost.body,
-  //     }
-  //   : {};
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
     mode: "onBlur", //"onChange",
-    // defaultValues,
   });
   const onSubmit = (data, e) => {
     setIsSubmitting(true);
     setError("");
-    // if (isEditMode) {
-    //   console.log(data);
-    // } else {
+
     const url = isEditMode
       ? `${process.env.REACT_APP_API_ENDPOINT}api/posts/${currentPost.id}`
       : `${process.env.REACT_APP_API_ENDPOINT}api/posts`;
-    // const formData = new FormData();
-    // formData.append("title", data.title);
-    // formData.append("body", data.body);
-    // formData.append("date", new Date());
-    // formData.append("image", data.image);
-    // formData.append("name", userContext.details.name);
-    // formData.append("userId", userContext.details.userId);
-    // console.log(formData);
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -59,8 +43,6 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
         body: data.body,
         date: isEditMode ? currentPost.date : new Date(),
         image: data.image,
-        // name: userContext.details.name,
-        // userId: userContext.details.userId,
       }),
     })
       .then(async (response) => {
@@ -69,13 +51,6 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
           throw Error("Create new post falied");
         }
         const data = await response.json();
-        console.log(data);
-        // if(userContext.details.posts.length === 0){
-        //   const newDetails = {
-        //     ...userContext.details,
-        //     posts:[]
-        //   }
-        // }
 
         setUserContext((prev) => ({ ...prev, refetch: true }));
         navigate("/mypage");
@@ -87,19 +62,12 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
       .finally(e.target.reset());
     // }
   };
-  let buttonDisaled = errors.title || errors.body || error.image;
-  // if (isEditMode) {
-  //   buttonDisaled = errors.title || errors.body;
-  // } else {
-  //   buttonDisaled = errors.title || errors.body || error.image;
-  // }
+  let buttonDisaled =
+    errors.title || errors.body || error.image || isSubmitting;
+
   return (
     <div className="m-10">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        method="post"
-        // encType="multipart/form-data"
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         {error && (
           <ErrorMessage
             text={isEditMode ? "Failed to update" : "Failed to Create new post"}
@@ -113,10 +81,6 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
             Title
           </label>
           <input
-            // type="text"
-            // id="title"
-            // name="title"
-            // defaultValue={isEditMode ? currentPost.title : ""}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={isEditMode ? defaultValues.title : ""}
             {...register("title", { required: true })}
@@ -137,23 +101,7 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
           />
           {errors.image && <ErrorMessage text="This is required" />}
         </div>
-        {/* {!isEditMode && (
-          <div className="mb-6">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              htmlFor="image"
-            >
-              Upload file
-            </label>
-            <input
-              className="block w-full text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              type="file"
-              accept=".jpg,.jpeg,.png"
-              {...register("image", { required: true })}
-            />
-            {errors.image && <ErrorMessage text="This is required" />}
-          </div>
-        )} */}
+
         <div className="mb-6">
           <label
             htmlFor="body"
@@ -162,10 +110,7 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
             Article Body
           </label>
           <textarea
-            // id="body"
-            // name="body"
             rows="10"
-            // defaultValue={isEditMode ? currentPost.body : ""}
             className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={isEditMode ? defaultValues.body : ""}
             {...register("body", { required: true, minLength: 5 })}
@@ -174,7 +119,7 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
             <ErrorMessage text="Body should be at least 5 words" />
           )}
         </div>
-        <Button disabled={buttonDisaled || isSubmitting}>
+        <Button disabled={buttonDisaled}>
           {isSubmitting ? <LoadingButtonEl /> : "Submit"}
         </Button>
       </form>

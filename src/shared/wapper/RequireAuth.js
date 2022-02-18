@@ -9,13 +9,6 @@ const RequireAuth = ({ children }) => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(userContext);
-  }, [userContext]);
-  // if (userContext.init || userContext.isLoading) {
-  //   <Message text="Loading..." />;
-  // }
-
   if (
     userContext.token === null &&
     !userContext.isLoading &&

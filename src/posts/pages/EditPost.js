@@ -29,13 +29,10 @@ const EditPost = () => {
       });
   }, [pid]);
   useEffect(() => {
-    // console.log(post.title);
-    // console.log(post.title);
     if (!post) {
       fetchPostById();
     }
   }, [fetchPostById, post]);
-  console.log(params);
   return (
     <div className="mx-10 my-5">
       <PageHeading>Create New Post</PageHeading>

@@ -94,7 +94,7 @@ const PostDetail = () => {
           <p className="mt-2 mb-2 p-6 text-slate-500 dark:text-slate-400">
             {post.body}
           </p>
-          {/* <Comments comments={post.comments} /> */}
+          <Comments comments={post.comments} />
           {userContext.details?._id === post.userId && (
             <div className="flex gap-2 mt-5">
               <Link

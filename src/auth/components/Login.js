@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/UIElements/Button";
@@ -11,7 +11,7 @@ const Login = ({ setIsLogin }) => {
   const location = useLocation();
   const [userContext, setUserContext] = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
   const {
     register,
     formState: { errors },
@@ -24,7 +24,7 @@ const Login = ({ setIsLogin }) => {
   };
   const onSubmit = (data, e) => {
     setIsSubmitting(true);
-    setError("");
+    // setError("");
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,17 +44,17 @@ const Login = ({ setIsLogin }) => {
         } else {
           const data = await response.json();
           setUserContext((prev) => ({ ...prev, token: data.token }));
+          let from = location.state?.from?.pathname || "/mypage";
+          navigate(from, { replace: true });
+          e.target.reset();
         }
-        let from = location.state?.from?.pathname || "/mypage";
-        console.log(location);
-        navigate(from, { replace: true });
       })
       .catch((error) => {
         setIsSubmitting(false);
         setError("Something went wrong! Please try again"); //generic error message
-      })
-      .finally(e.target.reset());
+      });
   };
+
   return (
     <div className="p-4 m-auto mt-3 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>

@@ -18,7 +18,6 @@ function App() {
       credentials: "include",
       header: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userContext.token}`,
       },
     })
       .then(async (response) => {
