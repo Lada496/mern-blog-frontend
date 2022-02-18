@@ -1,7 +1,7 @@
 # mern-blog-frontend
 
 ## SPA structure
-<img width="939" alt="Screen Shot 2022-02-18 at 9 35 30" src="https://user-images.githubusercontent.com/67321065/154741617-e8cd0899-8f03-4e17-9311-7d3117f8ea46.png">
+<img width="925" alt="Screen Shot 2022-02-18 at 14 00 40" src="https://user-images.githubusercontent.com/67321065/154767151-f26a14bc-417e-4d7b-975f-e994df86153d.png">
 
 ## Screen shots
 ### Landing page
