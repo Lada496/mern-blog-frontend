@@ -27,6 +27,9 @@
 ### Create new post page
 ![screencapture-agile-badlands-68110-herokuapp-mypage-new-2022-02-18-10_37_33](https://user-images.githubusercontent.com/67321065/154742856-ba924f9a-fdcb-416e-a55b-087e7902b5e3.png)
 
+### Edit post page
+![screencapture-localhost-3000-mypage-620f4619581b128b0e2179e4-2022-02-18-10_55_47](https://user-images.githubusercontent.com/67321065/154746040-432de8a9-689e-4732-be86-966b2a24a3c1.png)
+
 ### Dark Mode
 ![screencapture-agile-badlands-68110-herokuapp-mypage-2022-02-18-10_27_06](https://user-images.githubusercontent.com/67321065/154743183-4827a380-939a-4c08-b034-e9e9e8c2d634.png)
 
