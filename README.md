@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# mern-blog-frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## SPA structure
+<img width="939" alt="Screen Shot 2022-02-18 at 9 35 30" src="https://user-images.githubusercontent.com/67321065/154741617-e8cd0899-8f03-4e17-9311-7d3117f8ea46.png">
 
-## Available Scripts
+## Screen shots
+### Landing page
+![screencapture-agile-badlands-68110-herokuapp-2022-02-18-10_33_00](https://user-images.githubusercontent.com/67321065/154742285-0cb707b4-d318-4d74-b8c7-0f580dbc8f89.png)
+### login and sign up page
+#### login 
+![screencapture-agile-badlands-68110-herokuapp-authenticate-2022-02-18-10_22_45](https://user-images.githubusercontent.com/67321065/154742941-c2755761-a96f-4979-a9ba-c99a49240de9.png)
+#### sign up
+![screencapture-agile-badlands-68110-herokuapp-authenticate-2022-02-18-10_23_05](https://user-images.githubusercontent.com/67321065/154742974-5837cad2-e00c-4d73-abd3-b5e6f57581cd.png)
 
-In the project directory, you can run:
+### A post page with out auth
+![screencapture-agile-badlands-68110-herokuapp-620ec7bba0c3834f45293096-620f4619581b128b0e2179e4-2022-02-18-10_22_18](https://user-images.githubusercontent.com/67321065/154741830-ee35aab8-1348-4ce3-b400-cc6d9611d4b5.png)
 
-### `npm start`
+### A post page with auth 
+![screencapture-agile-badlands-68110-herokuapp-620f4551581b128b0e217912-620f470a581b128b0e217a7a-2022-02-18-10_24_41](https://user-images.githubusercontent.com/67321065/154742507-6ea7498c-88cf-444d-8623-4d297eb88d95.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### My posts page
+![screencapture-agile-badlands-68110-herokuapp-mypage-2022-02-18-10_23_43](https://user-images.githubusercontent.com/67321065/154742590-74a6b40a-0e55-4f71-9c5a-a4d477110e50.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### My post page
+![screencapture-agile-badlands-68110-herokuapp-620ec7bba0c3834f45293096-620f4619581b128b0e2179e4-2022-02-18-10_24_16](https://user-images.githubusercontent.com/67321065/154742533-06c493ad-51d7-4963-bb4b-f951b59a85c8.png)
 
-### `npm test`
+### Create new post page
+![screencapture-agile-badlands-68110-herokuapp-mypage-new-2022-02-18-10_37_33](https://user-images.githubusercontent.com/67321065/154742856-ba924f9a-fdcb-416e-a55b-087e7902b5e3.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Dark Mode
+![screencapture-agile-badlands-68110-herokuapp-mypage-2022-02-18-10_27_06](https://user-images.githubusercontent.com/67321065/154743183-4827a380-939a-4c08-b034-e9e9e8c2d634.png)
 
-### `npm run build`
+### Mobile view
+<img width="500" src="https://user-images.githubusercontent.com/67321065/154743206-cfec6025-77f6-4506-aca0-3613ff64e1ea.png" alt="mobile view"/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Demo Link
+https://agile-badlands-68110.herokuapp.com
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
