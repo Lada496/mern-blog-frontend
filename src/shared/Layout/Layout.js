@@ -2,7 +2,7 @@ import Navigation from "./Navigation";
 
 const Layout = ({ children }) => {
   return (
-    <div className="bg-white min-h-screen dark:bg-gray-900">
+    <div>
       <Navigation />
       <main>{children}</main>
     </div>
