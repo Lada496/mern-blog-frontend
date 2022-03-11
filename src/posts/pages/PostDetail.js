@@ -79,9 +79,9 @@ const PostDetail = () => {
           <h1 className="mb-2 text-2xl font-bold capitalize tracking-tight text-gray-900 dark:text-white">
             {post.title}
           </h1>
-          {/* <div className="flex gap-4">
+          <div className="flex gap-4">
             <LikesForm likes={post.likes} />
-          </div> */}
+          </div>
 
           <div className="mx-auto w-full lg:w-8/12">
             <img
