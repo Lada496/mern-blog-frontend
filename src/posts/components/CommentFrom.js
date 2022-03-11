@@ -9,7 +9,7 @@ import { UserContext } from "../../shared/context/user-context";
 const CommentFrom = ({ setFetchedComments }) => {
   const params = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userContext] = useContext(UserContext);
   const [error, setError] = useState("");
   const pid = params.pid;
   const {
@@ -39,7 +39,7 @@ const CommentFrom = ({ setFetchedComments }) => {
           throw Error("Create new comment falied");
         }
         const data = await response.json();
-        setFetchedComments((prev) => [...prev, data.comment]);
+        setFetchedComments((prev) => [data.comment, ...prev]);
         e.target.reset();
       })
       .catch((err) => {

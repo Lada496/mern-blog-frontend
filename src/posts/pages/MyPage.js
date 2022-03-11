@@ -8,7 +8,7 @@ import { useMyData } from "../../shared/hooks/use-mydata";
 
 const MyPage = () => {
   useMyData();
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userContext] = useContext(UserContext);
   const [myPosts, setMyPosts] = useState([]);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ const MyPage = () => {
         setError(err);
         console.log(err);
       });
-  }, []);
+  }, [userContext.token]);
 
   useEffect(() => {
     if (
@@ -47,17 +47,14 @@ const MyPage = () => {
     ) {
       fetchPostsByUserId();
     }
-  }, [userContext.details, myPosts]);
+  }, [userContext.details, myPosts, fetchPostsByUserId, userContext.isLoading]);
 
   return (
     <div className="mx-10 my-5">
       {error && <ErrorMessage text="Failed to fetch data" />}
 
       {userContext?.details && (
-        <PageHeading>
-          {userContext.details.name}
-          <span className="lowercase">'s</span> Page
-        </PageHeading>
+        <PageHeading>My Page - {userContext.details.name}</PageHeading>
       )}
       {isLoading && <Message text="Loaindg..." />}
       {userContext?.details?.posts.length === 0 ? (

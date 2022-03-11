@@ -52,33 +52,6 @@ function App() {
     };
   }, [syncLogout]);
 
-  let routes;
-
-  // if (userContext.token === null) {
-  //   routes = (
-  //     <Routes>
-  //       <Route path="/" element={<AllPosts />} />
-  //       {/* <Route path=":uid/*" element={<UserPosts />} /> */}
-  //       <Route path=":uid/:pid" element={<PostDetail />} />
-  //       <Route path="authenticate" element={<Auth />} />
-  //       <Route path="*" render={() => <Navigate to="/" />} />
-  //     </Routes>
-  //   );
-  // } else if (userContext.token) {
-  //   routes = (
-  //     <Routes>
-  //       <Route path="/" element={<AllPosts />} />
-  //       <Route path=":uid/*" element={<UserPosts />} />
-  //       <Route path=":uid/:pid" element={<PostDetail />} />
-  //       <Route path="mypage/*" element={<MyPage />} />
-  //       <Route path="mypage/new" element={<NewPost />} />
-  //       <Route path="mypage/:pid" element={<EditPost />} />
-  //       <Route path="*" render={() => <Navigate to="/" />} />
-  //     </Routes>
-  //   );
-  // } else {
-  //   routes = <p className="p-3 text-gray-500 dark:gray-100">Loading...</p>;
-  // }
   return (
     <Layout>
       <Routes>

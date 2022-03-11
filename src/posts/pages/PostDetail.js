@@ -26,7 +26,6 @@ const PostDetail = () => {
           throw Error("Failed to fetch data");
         }
         const data = await response.json();
-        // console.log(data);
         setPost(data.post);
       })
       .catch((err) => {
@@ -35,8 +34,6 @@ const PostDetail = () => {
       });
   }, [pid]);
   useEffect(() => {
-    // console.log(post.title);
-    // console.log(post.title);
     if (!post) {
       fetchPostById();
     }
@@ -62,14 +59,27 @@ const PostDetail = () => {
         });
     }
   };
+
   return (
-    <>
+    <div className="p-5 py-5 lg:px-48 md:px-28">
       {isLoading && <Message text="Loading..." />}
       {error && <ErrorMessage text={error} />}
       {post && (
-        <div className="p-5 py-5 lg:px-48 md:px-28">
+        <>
           <p className="mt-2 mb-2 text-slate-500 dark:text-slate-400">
-            by <span className="capitalize">{post.name}</span> -{" "}
+            by{" "}
+            <span className="capitalize underline hover:text-slate-700 dark:hover:text-slate-300">
+              <Link
+                to={
+                  userContext.details?._id === post.userId
+                    ? "../mypage"
+                    : `../${post.userId}`
+                }
+              >
+                {post.name}{" "}
+              </Link>
+            </span>{" "}
+            -{" "}
             {new Date(post.date).toLocaleString("en-US", {
               year: "numeric",
               month: "short",
@@ -139,9 +149,9 @@ const PostDetail = () => {
               </span>
             </div>
           )}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
