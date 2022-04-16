@@ -82,7 +82,7 @@ const Signup = ({ setIsLogin }) => {
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
           Sign Up
         </h3>
-        {error && <ErrorMessage text="Failed to sign up" />}
+        {error && <ErrorMessage text={error} />}
         <div>
           <label
             htmlFor="name"

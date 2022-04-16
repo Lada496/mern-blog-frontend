@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/UIElements/Button";
@@ -24,7 +24,6 @@ const Login = ({ setIsLogin }) => {
   };
   const onSubmit = (data, e) => {
     setIsSubmitting(true);
-    // setError("");
     fetch(process.env.REACT_APP_API_ENDPOINT + "api/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -61,7 +60,7 @@ const Login = ({ setIsLogin }) => {
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
           Login
         </h3>
-        {error && <ErrorMessage text="Failed to login" />}
+        {error && <ErrorMessage text={error} />}
         <div>
           <label
             htmlFor="email"

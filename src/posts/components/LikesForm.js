@@ -42,7 +42,6 @@ const LikesForm = ({ likes }) => {
       })
       .catch((err) => {
         setIsSubmitting(false);
-        // console.log(err);
       })
       .finally(e.target.reset());
   };

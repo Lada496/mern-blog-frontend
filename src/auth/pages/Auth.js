@@ -6,7 +6,7 @@ import { UserContext } from "../../shared/context/user-context";
 import Message from "../../shared/UIElements/Message";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userContext] = useContext(UserContext);
   const location = useLocation();
   let from = location.state?.from?.pathname || "/mypage";
   if (userContext.isLoading || userContext.init) {

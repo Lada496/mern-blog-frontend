@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useContext } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PageHeading from "../../shared/UIElements/PageHeading";
 import PostForm from "../components/PostForm";
@@ -20,7 +20,6 @@ const EditPost = () => {
           throw Error("Failed to fetch data");
         }
         const data = await response.json();
-        // console.log(data);
         setPost(data.post);
       })
       .catch((err) => {

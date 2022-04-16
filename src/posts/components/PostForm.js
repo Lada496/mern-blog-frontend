@@ -50,7 +50,6 @@ const PostForm = ({ isEditMode = false, currentPost = {} }) => {
         if (!response.ok) {
           throw Error("Create new post falied");
         }
-        const data = await response.json();
 
         setUserContext((prev) => ({ ...prev, refetch: true }));
         navigate("/mypage");

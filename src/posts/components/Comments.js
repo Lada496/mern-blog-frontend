@@ -6,7 +6,7 @@ import CommentFrom from "./CommentFrom";
 import { UserContext } from "../../shared/context/user-context";
 
 const Comments = ({ comments }) => {
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userContext] = useContext(UserContext);
   const [fetchedComments, setFetchedComments] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ const Comments = ({ comments }) => {
     if (comments.length > 0 && fetchedComments.length === 0) {
       fetchComments();
     }
-  }, [fetchedComments, fetchComments]);
+  }, [fetchedComments, fetchComments, comments]);
 
   return (
     <div className="mt-5 p-5 mb-4 border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">

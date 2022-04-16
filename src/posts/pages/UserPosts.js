@@ -33,7 +33,7 @@ const UserPosts = () => {
 
   return (
     <div className="mx-10 my-5">
-      {error && <ErrorMessage text="Failed to fetch data" />}
+      {error && <ErrorMessage text={error} />}
       {isLoading && <Message text="Loaindg..." />}
       {posts && (
         <PageHeading>

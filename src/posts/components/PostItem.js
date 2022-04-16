@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const PostItem = ({ post }) => {
-  // console.log(post);
   const date = new Date(post.date);
   const options = {
     year: "numeric",

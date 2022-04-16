@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useContext, useState } from "react";
+import { useEffect, useCallback, useContext } from "react";
 import { UserContext } from "../context/user-context";
 
 export const useMyData = () => {
@@ -27,7 +27,6 @@ export const useMyData = () => {
     });
   }, [setUserContext, userContext.token]);
   useEffect(() => {
-    // console.log(userContext);
     if ((userContext.token && !userContext.details) || userContext.refetch) {
       fetchUserDetails();
       setUserContext((prev) => ({ ...prev, refetch: false }));
@@ -38,5 +37,4 @@ export const useMyData = () => {
     userContext.token,
     userContext.refetch,
   ]);
-  // return userContext.details;
 };

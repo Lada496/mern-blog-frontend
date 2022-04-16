@@ -23,7 +23,7 @@ const AllPosts = () => {
         setIsLoading(false);
         setError(err);
       });
-  });
+  }, []);
 
   useEffect(() => {
     if (!posts) {

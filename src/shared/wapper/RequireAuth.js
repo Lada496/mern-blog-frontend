@@ -1,8 +1,7 @@
-import { useContext, useCallback, useEffect } from "react";
+import { useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import { UserContext } from "../context/user-context";
 import Message from "../UIElements/Message";
-// import { useMyData } from "../hooks/use-mydata";
 
 const RequireAuth = ({ children }) => {
   const [userContext] = useContext(UserContext);
